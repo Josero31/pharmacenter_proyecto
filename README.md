@@ -22,7 +22,7 @@ Almacena los documentos, enlaces y otros recursos utilizados en el segundo avanc
 - Historias de usuarios
 
 ### 📂 Corte 1
-Esta carpeta agrupa todos los materiales relacionados con el primer corte del proyecto, tales como:
+Esta carpeta agrupa todos los materiales relacionados con el primer corte del proyecto, incluyendo los realizados en el avance 1 tales como:
 - Definicion de perfiles
 - ¿Qué? ¿Cómo? ¿Por qué?
 - AEIOU
@@ -30,7 +30,16 @@ Esta carpeta agrupa todos los materiales relacionados con el primer corte del pr
 - Reportes
 
 ### 📂 Corte 2
-
+Esta carpeta agrupa todos los materiales relacionados con el segundo corte del proyecto, incluyendo los realizados en el avance 2 tales como:
+- Pasos del Design Studio
+- Todas las ideas generadas
+- Sketches de las ideas
+- Ideas más repetidas
+- Historias de usuarios
+- Descripción de actores
+- Casos de uso del sistema
+- Requisitos no funcionales
+- Trabajo con el cliente, bitácoras
 
 ### 📂 Scrum
 carpeta con funcion aun desconocida
