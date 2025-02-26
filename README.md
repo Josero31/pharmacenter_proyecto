@@ -8,22 +8,25 @@ Este repositorio contiene la organización de los distintos avances y cortes del
 
 ### 📂 Avances 1
 Contiene los documentos entregados correspondientes al primer avance del proyecto. Aquí se incluyen:
-
-Definicion de perfiles
-Que? como? Por que?
-AEIOU
+- Definicion de perfiles
+- ¿Qué? ¿Cómo? ¿Por qué?
+- AEIOU
 
 
 ### 📂 Avances 2
 Almacena los documentos, enlaces y otros recursos utilizados en el segundo avance del proyecto. Incluye:
-
+- Pasos del Design Studio
+- Todas las ideas generadas
+- Sketches de las ideas
+- Ideas más repetidas
+- Historias de usuarios
 
 ### 📂 Corte 1
 Esta carpeta agrupa todos los materiales relacionados con el primer corte del proyecto, tales como:
-Definicion de perfiles
-Que? como? Por que?
-AEIOU
-Entrevistas
+- Definicion de perfiles
+- ¿Qué? ¿Cómo? ¿Por qué?
+- AEIOU
+- Entrevistas
 - Reportes
 
 ### 📂 Corte 2
