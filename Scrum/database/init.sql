@@ -45,13 +45,7 @@ CREATE TABLE Venta_Medicamento (
     FOREIGN KEY (idMedicamento) REFERENCES Medicamento(idMedicamento)
 );
 
--- Crear la tabla de contraseñas de usuario
-CREATE TABLE UsuarioPassword (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE
-);
+
 
 INSERT INTO Usuario (idUsuario, nombre, correo) VALUES
 (1, 'Ana Torres', 'ana.torres@email.com'),
@@ -65,18 +59,7 @@ INSERT INTO Usuario (idUsuario, nombre, correo) VALUES
 (9, 'Sandra Romero', 'sandra.romero@email.com'),
 (10, 'Jorge Herrera', 'jorge.herrera@email.com');
 
--- Insertar contraseñas para los 10 usuarios existentes
-INSERT INTO UsuarioPassword (usuario_id, password) VALUES 
-(1, 'pass1234'),
-(2, 'secure5678'),
-(3, 'mypassword90'),
-(4, 'adminaccess'),
-(5, 'qwerty2025'),
-(6, 'alpha7890'),
-(7, 'beta1234'),
-(8, 'charlie567'),
-(9, 'delta4321'),
-(10, 'echo9999');
+
 
 
 INSERT INTO Medicamento (idMedicamento, nombre, cantidadInventario, fechaVencimiento, precio, proveedor) VALUES

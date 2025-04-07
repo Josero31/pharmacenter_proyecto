@@ -1,23 +1,41 @@
+version: '3.8'
+
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: pharma_user
+      POSTGRES_PASSWORD: pharma_password123
+      POSTGRES_DB: pharmacenter_db
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pharmanetwork
+
   backend:
     build: ./backend
     ports:
       - "3000:3000"
-  
+    environment:
+      - DB_HOST=postgres
+    depends_on:
+      - postgres
+    networks:
+      - pharmanetwork
+
   frontend:
     build: ./frontend
     ports:
       - "80:80"
     depends_on:
       - backend
+    networks:
+      - pharmanetwork
 
-  postgres:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_PASSWORD: ejemplo123
-    volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - postgres_data:/var/lib/postgresql/data
+networks:
+  pharmanetwork:
+    driver: bridge
 
 volumes:
   postgres_data:
