@@ -153,38 +153,6 @@ app.post('/api/usuarios', async (req, res) => {
     }
   });
 
-  // PUT: Actualizar un usuario
-app.put('/api/usuarios/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nombre, contrasena } = req.body;
-    try {
-      const result = await db.query(
-        'UPDATE Usuario SET nombreUsuario = $1, contraseña = $2 WHERE idUsuario = $3',
-        [nombre, contrasena, id]
-      );
-      if (result.rowCount === 0) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
-      }
-      res.json({ message: 'Usuario actualizado exitosamente' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
-
-  // DELETE: Eliminar un usuario
-app.delete('/api/usuarios/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-      const result = await db.query('DELETE FROM Usuario WHERE idUsuario = $1', [id]);
-      if (result.rowCount === 0) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
-      }
-      res.json({ message: 'Usuario eliminado exitosamente' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
-
 // Health Check
 app.get('/ping', (req, res) => res.send('pong'));
 
