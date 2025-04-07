@@ -1,7 +1,8 @@
 CREATE TABLE Usuario (
     idUsuario INT PRIMARY KEY,
     nombre VARCHAR(100),
-    correo VARCHAR(100)
+    correo VARCHAR(100),
+    contrasena VARCHAR(255) -- Agregamos la contraseña
 );
 
 CREATE TABLE Medicamento (
@@ -47,17 +48,17 @@ CREATE TABLE Venta_Medicamento (
 
 
 
-INSERT INTO Usuario (idUsuario, nombre, correo) VALUES
-(1, 'Ana Torres', 'ana.torres@email.com'),
-(2, 'Luis Martínez', 'luis.martinez@email.com'),
-(3, 'María Gómez', 'maria.gomez@email.com'),
-(4, 'Carlos Ruiz', 'carlos.ruiz@email.com'),
-(5, 'Laura López', 'laura.lopez@email.com'),
-(6, 'Pedro Sánchez', 'pedro.sanchez@email.com'),
-(7, 'Lucía Fernández', 'lucia.fernandez@email.com'),
-(8, 'Miguel Díaz', 'miguel.diaz@email.com'),
-(9, 'Sandra Romero', 'sandra.romero@email.com'),
-(10, 'Jorge Herrera', 'jorge.herrera@email.com');
+INSERT INTO Usuario (idUsuario, nombre, correo, contrasena) VALUES
+(1, 'Ana Torres', 'ana.torres@email.com', 'ana123'),
+(2, 'Luis Martínez', 'luis.martinez@email.com', 'luis123'),
+(3, 'María Gómez', 'maria.gomez@email.com', 'maria123'),
+(4, 'Carlos Ruiz', 'carlos.ruiz@email.com', 'carlos123'),
+(5, 'Laura López', 'laura.lopez@email.com', 'laura123'),
+(6, 'Pedro Sánchez', 'pedro.sanchez@email.com', 'pedro123'),
+(7, 'Lucía Fernández', 'lucia.fernandez@email.com', 'lucia123'),
+(8, 'Miguel Díaz', 'miguel.diaz@email.com', 'miguel123'),
+(9, 'Sandra Romero', 'sandra.romero@email.com', 'sandra123'),
+(10, 'Jorge Herrera', 'jorge.herrera@email.com', 'jorge123');
 
 
 

@@ -76,7 +76,79 @@ app.delete('/api/medicamentos/:id', async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   });
+
+////////API de usuarios///////////
   
+// Rutas básicas
+app.get('/api/usuarios', async (req, res) => {
+    try {
+      const result = await db.query('SELECT idUsuario, nombre FROM Usuario'); // Nunca envíes contraseñas en un GET
+      res.json(result.rows);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // GET: Obtener un usuario por ID
+app.get('/api/usuarios/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const result = await db.query('SELECT idUsuario, nombre FROM Usuario WHERE idUsuario = $1', [id]);
+      if (result.rows.length === 0) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+      res.json(result.rows[0]);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+// POST: Crear un nuevo usuario
+app.post('/api/usuarios', async (req, res) => {
+    const { idUsuario, nombre, contrasena } = req.body;
+    try {
+      await db.query(
+        'INSERT INTO Usuario (idUsuario, nombre, contrasena) VALUES ($1, $2, $3)',
+        [idUsuario, nombre, contrasena]
+      );
+      res.status(201).json({ message: 'Usuario creado exitosamente' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // PUT: Actualizar un usuario
+app.put('/api/usuarios/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nombre, contrasena } = req.body;
+    try {
+      const result = await db.query(
+        'UPDATE Usuario SET nombreUsuario = $1, contraseña = $2 WHERE idUsuario = $3',
+        [nombre, contrasena, id]
+      );
+      if (result.rowCount === 0) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+      res.json({ message: 'Usuario actualizado exitosamente' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // DELETE: Eliminar un usuario
+app.delete('/api/usuarios/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const result = await db.query('DELETE FROM Usuario WHERE idUsuario = $1', [id]);
+      if (result.rowCount === 0) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+      res.json({ message: 'Usuario eliminado exitosamente' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
 // Health Check
 app.get('/ping', (req, res) => res.send('pong'));
 
