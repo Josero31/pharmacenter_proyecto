@@ -162,7 +162,59 @@ fetch('http://localhost:3000/api/medicamentos')
 🔗 **Documentación útil:**  
 - [Docker Compose](https://docs.docker.com/compose/)  
 - [Express.js](https://expressjs.com/)  
-- [PostgreSQL](https://www.postgresql.org/docs/)  
+- [PostgreSQL](https://www.postgresql.org/docs/)
+
+  ### **ENDPOINTS MAS DETALLADOS**
+# **📋 API Endpoints & Frontend Calls - PharmaCenter**
+
+## **🔗 Backend API Endpoints (Actuales)**
+
+### **1. Autenticación**
+```javascript
+POST    /api/login          // Login de usuario
+POST    /api/logout         // Cerrar sesión
+```
+
+### **2. Usuarios**
+```javascript
+GET     /api/usuarios       // Listar todos los usuarios
+GET     /api/usuarios/:id   // Obtener usuario específico
+POST    /api/usuarios       // Crear nuevo usuario
+PUT     /api/usuarios/:id   // Actualizar usuario
+DELETE  /api/usuarios/:id   // Eliminar usuario
+```
+
+### **3. Medicamentos**
+```javascript
+GET     /api/medicamentos              // Listar todos
+GET     /api/medicamentos/:id          // Detalles de medicamento
+POST    /api/medicamentos              // Añadir nuevo
+PUT     /api/medicamentos/:id          // Actualizar
+DELETE  /api/medicamentos/:id          // Eliminar
+GET     /api/medicamentos/vencimiento  // Listar por fecha de vencimiento
+```
+
+### **4. Ventas**
+```javascript
+POST    /api/ventas               // Registrar nueva venta
+GET     /api/ventas/:id           // Detalles de venta
+GET     /api/ventas/usuario/:id   // Ventas por usuario
+```
+
+### **5. Reportes**
+```javascript
+GET     /api/reportes/stock-bajo    // Medicamentos con stock bajo
+POST    /api/reportes/generar-pdf   // Generar reporte PDF
+```
+
+
+---
+
+## **📌 Notas Importantes**
+1. **URL Base**: Todas las llamadas usan `http://localhost:3000` en desarrollo
+2. **Errores**: Siempre verificar `response.ok` antes de procesar datos
+3. **CORS**: El backend ya tiene configurado CORS para aceptar peticiones del frontend
+
 
 --- 
 
