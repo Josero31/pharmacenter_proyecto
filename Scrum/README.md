@@ -53,7 +53,7 @@ Contiene la **documentación** del proyecto.
 - **`.gitignore`**: Define qué archivos deben ser ignorados por Git.
 - **`README.md`**: Archivo principal de documentación del proyecto.
 
-## DOCKER 🐳🐳🐳
+### DOCKER 🐳🐳🐳
 
 # **📦 PharmaCenter - Docker Setup Guide**  
 *Para el equipo de desarrollo*  
@@ -67,7 +67,7 @@ Contiene la **documentación** del proyecto.
 
 ### **1. Clonar el repositorio**  
 ```bash
-git clone [URL_DEL_REPOSITORIO]
+git clone https://github.com/Josero31/pharmacenter_proyecto.git
 cd pharmacenter_proyecto
 ```
 
@@ -105,7 +105,8 @@ pharmacenter_proyecto/
 - Endpoints simples (usar rutas existentes en `server.js`)  
 - Consultas CRUD básicas (extender `userRoutes.js`)  
 
-### **2. Dependencias permitidas**  
+### **2. Dependencias permitidas** 
+# **Se discutira en caso de que necesitemos mas**
 **Backend (`package.json`):**  
 ```json
 "dependencies": {
@@ -157,52 +158,6 @@ fetch('http://localhost:3000/api/medicamentos')
 
 ---
 
-## **💡 Consejos para el Equipo**  
-- **Variables de entorno:** Usar `.env` para credenciales.  
-  Ejemplo (`backend/.env`):  
-  ```env
-  DB_HOST=postgres
-  DB_USER=pharma_user
-  DB_PASSWORD=pharma_password123
-  ```  
-
-- **Volúmenes Docker:** Los datos de PostgreSQL persisten en `postgres_data`.  
-
-- **Logs:** Ver errores en tiempo real con:  
-  ```bash
-  docker-compose logs -f
-  ```
-
----
-
-## **🛠️ Solución de Problemas Comunes**  
-1. **Error al iniciar PostgreSQL:**  
-   - Verifica que `init.sql` no sea una carpeta.  
-   - Ejecuta:  
-     ```bash
-     docker-compose down -v && docker-compose up --build
-     ```  
-
-2. **API no responde:**  
-   - Revisa los logs del backend:  
-     ```bash
-     docker logs scrum-backend-1
-     ```  
-
-3. **Dependencias faltantes:**  
-   - Reconstruye los contenedores después de editar `package.json`.  
-
----
-
-**✨ ¡Listos para desarrollar!**  
-*Actualicen este README cuando agreguen nuevas funcionalidades.*  
-
---- 
-
-### **📝 Notas Finales**  
-- **Mantengan limpio el código:** Documenten endpoints con comentarios.  
-- **Prueben antes de hacer push:** Usen `Postman` o `Insomnia` para APIs.  
-- **Pregunten:** Si hay dudas con Docker o las reglas.  
 
 🔗 **Documentación útil:**  
 - [Docker Compose](https://docs.docker.com/compose/)  
