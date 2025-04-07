@@ -92,13 +92,20 @@ pharmacenter_proyecto/
 ```
 ## **endpoints** CRUD medicamentos 
 
+**Método	Ruta	Acción**
+- GET	/api/medicamentos	Listar todos los medicamentos
+- GET	/api/medicamentos/:id	Obtener un medicamento específico
+- POST	/api/medicamentos	Crear un nuevo medicamento
+- PUT	/api/medicamentos/:id	Actualizar un medicamento
+- DELETE	/api/medicamentos/:id	Eliminar un medicamento
 
-Método	Ruta	Acción
-GET	/api/medicamentos	Listar todos los medicamentos
-GET	/api/medicamentos/:id	Obtener un medicamento específico
-POST	/api/medicamentos	Crear un nuevo medicamento
-PUT	/api/medicamentos/:id	Actualizar un medicamento
-DELETE	/api/medicamentos/:id	Eliminar un medicamento
+## **Endpoints para  usuarios**
+Método	Ruta	Descripción
+- GET	/api/contraseñas	Obtener todas las contraseñas
+- GET	/api/contraseñas/:id	Obtener una contraseña por su id
+- POST	/api/contraseñas	Crear una nueva contraseña
+- PUT	/api/contraseñas/:id	Actualizar una contraseña existente
+- DELETE	/api/contraseñas/:id	Eliminar una contraseña
 
 🔗 **Documentación útil:**  
 - [Docker Compose](https://docs.docker.com/compose/)  
