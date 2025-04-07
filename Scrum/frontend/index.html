@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharmacenter</title>
+</head>
+<body>
+  <h1>Medicamentos</h1>
+  <div id="medicamentos"></div>
+  
+  <script>
+    fetch('http://localhost:3000/medicamentos')
+      .then(res => res.json())
+      .then(data => {
+        const div = document.getElementById('medicamentos');
+        data.forEach(med => {
+          div.innerHTML += `<p>${med.nombre}: $${med.precio}</p>`;
+        });
+      });
+  </script>
+</body>
+</html>
