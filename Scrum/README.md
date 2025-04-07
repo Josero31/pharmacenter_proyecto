@@ -80,7 +80,7 @@ docker-compose up --build
 - **Backend (API):** `http://localhost:3000`  
 - **PostgreSQL:** Puerto `5432` (usuario: `pharma_user`, contraseña: `pharma_password123`)  
 
----
+
 
 ## **🔧 Estructura del Proyecto**  
 ```bash
@@ -90,132 +90,21 @@ pharmacenter_proyecto/
 ├── database/         # Scripts SQL iniciales
 └── docker-compose.yml # Configuración de contenedores
 ```
+## **endpoints** CRUD medicamentos 
 
----
 
-## **📌 Reglas para Desarrollo**  
-
-### **1. ¿Cuándo crear una nueva API?**  
-✅ **Sí:**  
-- Nuevas entidades (Ej: `Reportes`, `Proveedores`)  
-- Funcionalidades complejas (Ej: `Exportar PDF`)  
-- Microservicios independientes  
-
-❌ **No:**  
-- Endpoints simples (usar rutas existentes en `server.js`)  
-- Consultas CRUD básicas (extender `userRoutes.js`)  
-
-### **2. Dependencias permitidas** 
-# **Se discutira en caso de que necesitemos mas**
-**Backend (`package.json`):**  
-```json
-"dependencies": {
-  "express": "^4.x",
-  "pg": "^8.x",       # PostgreSQL
-  "cors": "^2.x",     # Permisos CORS
-  "dotenv": "^16.x"   # Variables de entorno
-},
-"devDependencies": {
-  "nodemon": "^3.x"   # Solo desarrollo
-}
-```
-
-**Frontend (`package.json` si usan React/Vue):**  
-```json
-"dependencies": {
-  "react": "^18.x",
-  "axios": "^1.x"     # Para llamadas API
-}
-```
-
----
-
-## **🔍 Pruebas de Funcionalidades**  
-
-### **1. Login**  
-**Endpoint:** `POST /api/login`  
-**Cuerpo de ejemplo:**  
-```json
-{
-  "email": "admin@pharmacenter.com",
-  "password": "secreto123"
-}
-```
-
-### **2. Navegación**  
-- Usar `fetch` en el frontend para cargar datos:  
-```javascript
-fetch('http://localhost:3000/api/medicamentos')
-  .then(res => res.json())
-  .then(data => console.log(data));
-```
-
-### **3. Inventario**  
-**Endpoints:**  
-- `GET /api/medicamentos` → Listar todos  
-- `POST /api/medicamentos` → Añadir nuevo  
-- `PUT /api/medicamentos/:id` → Actualizar  
-
----
-
+Método	Ruta	Acción
+GET	/api/medicamentos	Listar todos los medicamentos
+GET	/api/medicamentos/:id	Obtener un medicamento específico
+POST	/api/medicamentos	Crear un nuevo medicamento
+PUT	/api/medicamentos/:id	Actualizar un medicamento
+DELETE	/api/medicamentos/:id	Eliminar un medicamento
 
 🔗 **Documentación útil:**  
 - [Docker Compose](https://docs.docker.com/compose/)  
 - [Express.js](https://expressjs.com/)  
 - [PostgreSQL](https://www.postgresql.org/docs/)
 
-  ### **ENDPOINTS MAS DETALLADOS**
-# **📋 API Endpoints & Frontend Calls - PharmaCenter**
 
-## **🔗 Backend API Endpoints (Actuales)**
-
-### **1. Autenticación**
-```javascript
-POST    /api/login          // Login de usuario
-POST    /api/logout         // Cerrar sesión
-```
-
-### **2. Usuarios**
-```javascript
-GET     /api/usuarios       // Listar todos los usuarios
-GET     /api/usuarios/:id   // Obtener usuario específico
-POST    /api/usuarios       // Crear nuevo usuario
-PUT     /api/usuarios/:id   // Actualizar usuario
-DELETE  /api/usuarios/:id   // Eliminar usuario
-```
-
-### **3. Medicamentos**
-```javascript
-GET     /api/medicamentos              // Listar todos
-GET     /api/medicamentos/:id          // Detalles de medicamento
-POST    /api/medicamentos              // Añadir nuevo
-PUT     /api/medicamentos/:id          // Actualizar
-DELETE  /api/medicamentos/:id          // Eliminar
-GET     /api/medicamentos/vencimiento  // Listar por fecha de vencimiento
-```
-
-### **4. Ventas**
-```javascript
-POST    /api/ventas               // Registrar nueva venta
-GET     /api/ventas/:id           // Detalles de venta
-GET     /api/ventas/usuario/:id   // Ventas por usuario
-```
-
-### **5. Reportes**
-```javascript
-GET     /api/reportes/stock-bajo    // Medicamentos con stock bajo
-POST    /api/reportes/generar-pdf   // Generar reporte PDF
-```
-
-
----
-
-## **📌 Notas Importantes**
-1. **URL Base**: Todas las llamadas usan `http://localhost:3000` en desarrollo
-2. **Errores**: Siempre verificar `response.ok` antes de procesar datos
-3. **CORS**: El backend ya tiene configurado CORS para aceptar peticiones del frontend
-
-
---- 
 
 **Equipo PharmaCenter © 2025**
