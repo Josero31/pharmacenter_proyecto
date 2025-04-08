@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Medicamentos</title>
+  <style>
+    /* Estilos básicos para que se vea bonito */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 20px;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #f2f2f2;
+    }
+    form {
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      max-width: 400px;
+    }
+    form input, form button {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    form button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Medicamentos</h1>
+  <table id="medicamentosTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Fecha Vencimiento</th>
+        <th>Precio</th>
+        <th>Proveedor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se agregarán los medicamentos vía JavaScript -->
+    </tbody>
+  </table>
+
+  <h2>Agregar Nuevo Medicamento</h2>
+  <form id="addMedicamentoForm">
+    <input type="text" id="idMedicamento" placeholder="ID Medicamento" required />
+    <input type="text" id="nombre" placeholder="Nombre" required />
+    <input type="number" id="cantidadInventario" placeholder="Cantidad Inventario" required />
+    <input type="date" id="fechaVencimiento" placeholder="Fecha Vencimiento" required />
+    <input type="number" step="0.01" id="precio" placeholder="Precio" required />
+    <input type="text" id="proveedor" placeholder="Proveedor" required />
+    <button type="submit">Agregar Medicamento</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
