@@ -153,6 +153,29 @@ app.post('/api/usuarios', async (req, res) => {
     }
   });
 
+// PUT: Crear contraseñas
+app.put('/api/usuarios/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, contrasena } = req.body;
+  try {
+    const result = await db.query(
+      'UPDATE contrasena SET contrasena = $1, nombre = $2 WHERE idUsuario = $3',
+      [contrasena, nombre, id]
+    );
+
+    if (result === result) {
+      return res.status(409).json({ error: 'No se puede elegir la misma contraseña' });
+    }
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.json({ message: 'Usuario actualizado exitosamente' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Health Check
 app.get('/ping', (req, res) => res.send('pong'));
 
