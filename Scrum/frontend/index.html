@@ -5,12 +5,15 @@
 </head>
 <body>
   <h1>Medicamentos</h1>
+  <!-- Contenedor donde se mostrarán los medicamentos -->
   <div id="medicamentos"></div>
   
   <script>
+    // Se hace una solicitud GET a la API en el puerto 3000 para obtener la lista de medicamentos
     fetch('http://localhost:3000/medicamentos')
       .then(res => res.json())
       .then(data => {
+        // Se obtiene la referencia al div donde se mostrará la información
         const div = document.getElementById('medicamentos');
         data.forEach(med => {
           div.innerHTML += `<p>${med.nombre}: $${med.precio}</p>`;
