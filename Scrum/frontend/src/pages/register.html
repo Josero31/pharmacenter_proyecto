@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro PharmaCenter</title>
+
+  <!-- Fuente Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .register-container {
+      background-color: #f3e8ff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      color: #7b2cbf;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff0f5;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      background-color: #9d4edd;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #7b2cbf;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="register-container">
+    <h2>Crear Cuenta</h2>
+    <form id="registerForm">
+      <input type="text" id="nombre" placeholder="Nombre completo" required><br>
+      <input type="email" id="correo" placeholder="Correo" required><br>
+      <input type="password" id="contrasena" placeholder="Contraseña" required><br>
+      <button type="submit">Registrarme</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const contrasena = document.getElementById('contrasena').value;
+
+      // 1. Verificar si el correo ya existe
+      const usuariosResponse = await fetch('http://localhost:3000/api/usuarios');
+      const usuarios = await usuariosResponse.json();
+
+      const correoExistente = usuarios.some(usuario => usuario.correo === correo);
+
+      if (correoExistente) {
+        alert('Este correo ya está registrado. Por favor inicia sesión o usa otro correo.');
+        return; // No continuar
+      }
+
+      // 2. Si no existe, crearlo
+      const response = await fetch('http://localhost:3000/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          idUsuario: Math.floor(Math.random() * 1000000),
+          nombre,
+          correo,
+          contrasena
+        })
+      });
+
+      if (response.ok) {
+        alert('Usuario creado exitosamente. Ahora inicia sesión.');
+        window.location.href = 'login.html'; // Regresar al login
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Error al registrar usuario');
+      }
+    });
+  </script>
+</body>
+</html>
