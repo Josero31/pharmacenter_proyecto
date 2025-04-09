@@ -2,7 +2,7 @@ CREATE TABLE Usuario (
     idUsuario INT PRIMARY KEY,
     nombre VARCHAR(100),
     correo VARCHAR(100),
-    contrasena VARCHAR(255) -- Agregamos la contraseña
+    contrasena VARCHAR(255) -- Falta agregar seguridad
 );
 
 CREATE TABLE Medicamento (
