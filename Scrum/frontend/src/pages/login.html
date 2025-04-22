@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login PharmaCenter</title>
+
+  <!-- Fuente Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc); /* Lila claro a azul lavanda */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background-color: #f3e8ff; /* Lila muy clarito */
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      color: #7b2cbf; /* Morado fuerte */
+      margin-bottom: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff0f5; /* Lavanda */
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      background-color: #9d4edd; /* Morado medio */
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #7b2cbf; /* Morado más oscuro */
+    }
+
+    .register-button {
+      background-color: #c77dff; /* Lila pastel */
+      margin-top: 10px;
+    }
+
+    .register-button:hover {
+      background-color: #9d4edd;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>PharmaCenter</h2>
+    <form id="loginForm">
+      <input type="email" id="correo" placeholder="Correo" required><br>
+      <input type="password" id="contrasena" placeholder="Contraseña" required><br>
+      <button type="submit">Ingresar</button>
+    </form>
+    
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const correo = document.getElementById('correo').value;
+      const contrasena = document.getElementById('contrasena').value;
+
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo, contrasena })
+      });
+
+      if (response.ok) {
+        window.location.href = 'file:///C:/Users/Pablo/OneDrive/Escritorio/Ingenieria%20en%20softwere/pharmacenter_proyecto/Scrum/frontend/public/index.html';
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Error de login');
+      }
+    });
+  </script>
+</body>
+</html>
+
