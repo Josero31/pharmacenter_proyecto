@@ -2,8 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const db = require('./models/db');
+const cors = require('cors');
+
+
 
 // Middlewares
+app.use(cors(
+  {
+    origin: '*', // Permitir todas las solicitudes de origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+  }
+));
 app.use(express.json());
 
 // Rutas básicas
