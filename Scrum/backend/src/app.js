@@ -2,8 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const db = require('./models/db');
+const cors = require('cors');
+
+
 
 // Middlewares
+app.use(cors(
+  {
+    origin: '*', // Permitir todas las solicitudes de origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+  }
+));
 app.use(express.json());
 
 // Rutas básicas
@@ -117,13 +127,13 @@ app.delete('/api/medicamentos/:id', async (req, res) => {
   
 // Rutas básicas
 app.get('/api/usuarios', async (req, res) => {
-    try {
-      const result = await db.query('SELECT idUsuario, nombre FROM Usuario'); // Nunca envíes contraseñas en un GET
-      res.json(result.rows);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
+  try {
+    const result = await db.query('SELECT idUsuario, nombre, correo FROM Usuario');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
   // GET: Obtener un usuario por ID
 app.get('/api/usuarios/:id', async (req, res) => {
@@ -171,6 +181,27 @@ app.put('/api/usuarios/:id', async (req, res) => {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
     res.json({ message: 'Usuario actualizado exitosamente' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Login simple (sin JWT)
+app.post('/api/login', async (req, res) => {
+  const { correo, contrasena } = req.body;
+  try {
+    const result = await db.query(
+      'SELECT * FROM Usuario WHERE correo = $1 AND contrasena = $2',
+      [correo, contrasena]
+    );
+
+    if (result.rows.length === 1) {
+      // Login exitoso
+      res.json({ success: true });
+    } else {
+      // Credenciales incorrectas
+      res.status(401).json({ success: false, message: 'Correo o contraseña incorrectos' });
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
