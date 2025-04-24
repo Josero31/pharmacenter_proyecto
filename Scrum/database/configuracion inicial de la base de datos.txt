@@ -1,0 +1,8 @@
+-- Crear usuario
+CREATE USER pharma_user WITH PASSWORD 'pharma_password123';
+
+-- Crear base de datos
+CREATE DATABASE pharmacenter_db OWNER pharma_user;
+
+-- Otorgar permisos
+GRANT ALL PRIVILEGES ON DATABASE pharmacenter_db TO pharma_user;
