@@ -90,24 +90,36 @@ app.post('/api/medicamentos', async (req, res) => {
   }
 });
 
-  // PUT: Actualizar un medicamento
-app.put('/api/medicamentos/:id', async (req, res) => {
+// PUT: Actualizar un medicamento
+  app.put('/api/medicamentos/:id', async (req, res) => {
     const { id } = req.params;
-    const { nombre, cantidadInventario, fechaVencimiento, precio, proveedor } = req.body;
+    const campos = req.body;
+  
+    if (!id || Object.keys(campos).length === 0) {
+      return res.status(400).json({ error: 'ID y campos para actualizar son requeridos' });
+    }
+  
+    const columnas = Object.keys(campos);
+    const valores = Object.values(campos);
+  
+    const setQuery = columnas.map((col, index) => `${col} = $${index + 1}`).join(', ');
+  
     try {
       const result = await db.query(
-        'UPDATE Medicamento SET nombre = $1, cantidadInventario = $2, fechaVencimiento = $3, precio = $4, proveedor = $5 WHERE idMedicamento = $6',
-        [nombre, cantidadInventario, fechaVencimiento, precio, proveedor, id]
+        `UPDATE Medicamento SET ${setQuery} WHERE idMedicamento = $${columnas.length + 1}`,
+        [...valores, id]
       );
+  
       if (result.rowCount === 0) {
         return res.status(404).json({ error: 'Medicamento no encontrado' });
       }
+  
       res.json({ message: 'Medicamento actualizado exitosamente' });
     } catch (err) {
+      console.error('Error al actualizar medicamento:', err);
       res.status(500).json({ error: err.message });
     }
   });
-
   
 // DELETE: Eliminar un medicamento
 app.delete('/api/medicamentos/:id', async (req, res) => {
