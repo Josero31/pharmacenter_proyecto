@@ -17,15 +17,33 @@ function fetchMedicamentos() {
       data.forEach(med => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${med.idMedicamento}</td>
-          <td>${med.nombre}</td>
-          <td>${med.cantidadInventario}</td>
-          <td>${med.fechaVencimiento}</td>
-          <td>${med.precio}</td>
-          <td>${med.proveedor}</td>
+          <td>
+            ${med.idmedicamento} <!-- aquí estaba idMedicamento -->
+          </td>
+          <td class="editable-cell">
+            ${med.nombre}
+            <button class="edit-btn" data-id="${med.idmedicamento}" data-field="nombre">✏️</button>
+          </td>
+          <td class="editable-cell">
+            ${med.cantidadinventario}
+            <button class="edit-btn" data-id="${med.idmedicamento}" data-field="cantidadinventario">✏️</button>
+          </td>
+          <td class="editable-cell">
+            ${med.fechavencimiento}
+            <button class="edit-btn" data-id="${med.idmedicamento}" data-field="fechavencimiento">✏️</button>
+          </td>
+          <td class="editable-cell">
+            ${med.precio}
+            <button class="edit-btn" data-id="${med.idmedicamento}" data-field="precio">✏️</button>
+          </td>
+          <td class="editable-cell">
+            ${med.proveedor}
+            <button class="edit-btn" data-id="${med.idmedicamento}" data-field="proveedor">✏️</button>
+          </td>
           <td><button class="delete-btn" data-id="${med.idMedicamento}">Eliminar</button></td>
         `;
         tbody.appendChild(tr);
+        enableInlineEditing();
       });
     })
     .catch(error => {
@@ -82,3 +100,54 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchMedicamentos();
   setupForm();
 });
+
+
+// Función para activar la edición en línea
+function enableInlineEditing() {
+  document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      const td = e.target.parentElement;
+      const field = e.target.dataset.field;
+      const id = e.target.dataset.id;
+      console.log('ID para editar:', id); // 🛠️ Depuración
+      const currentValue = td.firstChild.textContent.trim();
+
+      // Reemplazar contenido por input
+      const input = document.createElement('input');
+      input.type = (field === 'precio' || field === 'cantidadInventario') ? 'number' : 'text';
+      input.value = currentValue;
+      input.style.width = '80%';
+
+      td.innerHTML = '';
+      td.appendChild(input);
+      input.focus();
+
+      // Guardar al salir del input o presionar Enter
+      const saveChanges = () => {
+        const newValue = input.value;
+        fetch(`${API_BASE_URL}/medicamentos/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            [field]: field === 'precio' || field === 'cantidadInventario' ? Number(newValue) : newValue
+          })
+        })
+        
+        .then(response => {
+          if (!response.ok) throw new Error('Error al actualizar');
+          return response.json();
+        })
+        .then(() => fetchMedicamentos()) // Recargar tabla
+        .catch(err => alert(err.message));
+      };
+
+      input.addEventListener('blur', saveChanges);
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          input.blur(); // Disparará blur -> guarda
+        }
+      });
+    });
+  });
+}
+
