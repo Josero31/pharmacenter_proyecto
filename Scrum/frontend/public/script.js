@@ -23,6 +23,7 @@ function fetchMedicamentos() {
           <td>${med.fechaVencimiento}</td>
           <td>${med.precio}</td>
           <td>${med.proveedor}</td>
+          <td><button class="delete-btn" data-id="${med.idMedicamento}">Eliminar</button></td>
         `;
         tbody.appendChild(tr);
       });
