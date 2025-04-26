@@ -4,16 +4,12 @@ const app = express();
 const db = require('./models/db');
 const cors = require('cors');
 
-
-
 // Middlewares
-app.use(cors(
-  {
-    origin: '*', // Permitir todas las solicitudes de origen
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
-  }
-));
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 
 // Rutas básicas
@@ -28,22 +24,25 @@ app.get('/api/medicamentos', async (req, res) => {
 
 // GET: Obtener un medicamento por ID
 app.get('/api/medicamentos/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-      const result = await db.query('SELECT * FROM Medicamento WHERE idMedicamento = $1', [id]);
-      if (result.rows.length === 0) {
-        return res.status(404).json({ error: 'Medicamento no encontrado' });
-      }
-      res.json(result.rows[0]);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+  const { id } = req.params;
+  try {
+    const result = await db.query(
+      'SELECT * FROM Medicamento WHERE idMedicamento = $1',
+      [id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Medicamento no encontrado' });
     }
-  });
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-  // POST: Crear un nuevo medicamento
+// POST: Crear un nuevo medicamento con ID autoincremental
+defaults = {};
 app.post('/api/medicamentos', async (req, res) => {
   const {
-    idMedicamento,
     nombre,
     cantidadInventario,
     fechaVencimiento,
@@ -53,7 +52,6 @@ app.post('/api/medicamentos', async (req, res) => {
 
   // Validación de campos obligatorios
   if (
-    !idMedicamento ||
     !nombre ||
     cantidadInventario == null ||
     !fechaVencimiento ||
@@ -61,29 +59,25 @@ app.post('/api/medicamentos', async (req, res) => {
     !proveedor
   ) {
     return res.status(400).json({
-      error: 'Todos los campos son obligatorios: idMedicamento, nombre, cantidadInventario, fechaVencimiento, precio y proveedor.'
+      error: 'Todos los campos son obligatorios: nombre, cantidadInventario, fechaVencimiento, precio y proveedor.'
     });
   }
 
   try {
-    // Verificar si el medicamento ya existe
-    const existe = await db.query(
-      'SELECT 1 FROM Medicamento WHERE idMedicamento = $1',
-      [idMedicamento]
+    // Insertar el nuevo medicamento y devolver el ID generado
+    const result = await db.query(
+      `INSERT INTO Medicamento
+         (nombre, cantidadInventario, fechaVencimiento, precio, proveedor)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING idMedicamento`,
+      [nombre, cantidadInventario, fechaVencimiento, precio, proveedor]
     );
 
-    if (existe.rows.length > 0) {
-      return res.status(409).json({ error: 'Ya existe un medicamento con ese ID.' });
-    }
-
-    // Insertar el nuevo medicamento en la base de datos
-    await db.query(
-      `INSERT INTO Medicamento (idMedicamento, nombre, cantidadInventario, fechaVencimiento, precio, proveedor)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [idMedicamento, nombre, cantidadInventario, fechaVencimiento, precio, proveedor]
-    );
-
-    res.status(201).json({ message: 'Medicamento registrado correctamente.' });
+    const nuevoId = result.rows[0].idmedicamento;
+    res.status(201).json({
+      message: 'Medicamento registrado correctamente.',
+      idMedicamento: nuevoId
+    });
   } catch (err) {
     console.error('Error al registrar medicamento:', err);
     res.status(500).json({ error: 'Error interno del servidor.' });
@@ -91,49 +85,48 @@ app.post('/api/medicamentos', async (req, res) => {
 });
 
 // PUT: Actualizar un medicamento
-  app.put('/api/medicamentos/:id', async (req, res) => {
-    const { id } = req.params;
-    const campos = req.body;
-  
-    if (!id || Object.keys(campos).length === 0) {
-      return res.status(400).json({ error: 'ID y campos para actualizar son requeridos' });
+app.put('/api/medicamentos/:id', async (req, res) => {
+  const { id } = req.params;
+  const campos = req.body;
+  if (!id || Object.keys(campos).length === 0) {
+    return res.status(400).json({ error: 'ID y campos para actualizar son requeridos' });
+  }
+
+  const columnas = Object.keys(campos);
+  const valores = Object.values(campos);
+  const setQuery = columnas.map((col, i) => `${col} = $${i+1}`).join(', ');
+
+  try {
+    const result = await db.query(
+      `UPDATE Medicamento SET ${setQuery} WHERE idMedicamento = $${columnas.length+1}`,
+      [...valores, id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Medicamento no encontrado' });
     }
-  
-    const columnas = Object.keys(campos);
-    const valores = Object.values(campos);
-  
-    const setQuery = columnas.map((col, index) => `${col} = $${index + 1}`).join(', ');
-  
-    try {
-      const result = await db.query(
-        `UPDATE Medicamento SET ${setQuery} WHERE idMedicamento = $${columnas.length + 1}`,
-        [...valores, id]
-      );
-  
-      if (result.rowCount === 0) {
-        return res.status(404).json({ error: 'Medicamento no encontrado' });
-      }
-  
-      res.json({ message: 'Medicamento actualizado exitosamente' });
-    } catch (err) {
-      console.error('Error al actualizar medicamento:', err);
-      res.status(500).json({ error: err.message });
-    }
-  });
-  
+    res.json({ message: 'Medicamento actualizado exitosamente' });
+  } catch (err) {
+    console.error('Error al actualizar medicamento:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // DELETE: Eliminar un medicamento
 app.delete('/api/medicamentos/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-      const result = await db.query('DELETE FROM Medicamento WHERE idMedicamento = $1', [id]);
-      if (result.rowCount === 0) {
-        return res.status(404).json({ error: 'Medicamento no encontrado' });
-      }
-      res.json({ message: 'Medicamento eliminado exitosamente' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+  const { id } = req.params;
+  try {
+    const result = await db.query(
+      'DELETE FROM Medicamento WHERE idMedicamento = $1', [id]
+    );
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Medicamento no encontrado' });
     }
-  });
+    res.json({ message: 'Medicamento eliminado exitosamente' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 ////////API de usuarios///////////
   
