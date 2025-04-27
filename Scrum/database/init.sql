@@ -42,7 +42,7 @@ CREATE TABLE Venta_Medicamento (
   cantidad      INT NOT NULL,
   PRIMARY KEY (idVenta, idMedicamento),
   FOREIGN KEY (idVenta) REFERENCES Venta(idVenta),
-  FOREIGN KEY (idMedicamento) REFERENCES Medicamento(idMedicamento)
+  FOREIGN KEY (idMedicamento) REFERENCES Medicamento(idMedicamento) ON DELETE CASCADE
 );
 
 

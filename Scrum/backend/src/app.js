@@ -39,8 +39,7 @@ app.get('/api/medicamentos/:id', async (req, res) => {
   }
 });
 
-// POST: Crear un nuevo medicamento con ID autoincremental
-defaults = {};
+// POST: Crear un nuevo medicamento con ID autoincremental (versión mejorada)
 app.post('/api/medicamentos', async (req, res) => {
   const {
     nombre,
@@ -50,37 +49,55 @@ app.post('/api/medicamentos', async (req, res) => {
     proveedor
   } = req.body;
 
-  // Validación de campos obligatorios
-  if (
-    !nombre ||
-    cantidadInventario == null ||
-    !fechaVencimiento ||
-    precio == null ||
-    !proveedor
-  ) {
-    return res.status(400).json({
-      error: 'Todos los campos son obligatorios: nombre, cantidadInventario, fechaVencimiento, precio y proveedor.'
-    });
+  // Validación de campos obligatorios mejorada
+  if (!nombre || nombre.trim() === '') {
+    return res.status(400).json({ error: 'El nombre es obligatorio' });
+  }
+  if (cantidadInventario == null || isNaN(cantidadInventario)) {
+    return res.status(400).json({ error: 'La cantidad en inventario debe ser un número válido' });
+  }
+  if (!fechaVencimiento) {
+    return res.status(400).json({ error: 'La fecha de vencimiento es obligatoria' });
+  }
+  if (precio == null || isNaN(precio) || precio < 0) {
+    return res.status(400).json({ error: 'El precio debe ser un número válido y no negativo' });
+  }
+  if (!proveedor || proveedor.trim() === '') {
+    return res.status(400).json({ error: 'El proveedor es obligatorio' });
   }
 
   try {
-    // Insertar el nuevo medicamento y devolver el ID generado
+    // Insertar el nuevo medicamento y devolver todos los datos del registro creado
     const result = await db.query(
       `INSERT INTO Medicamento
          (nombre, cantidadInventario, fechaVencimiento, precio, proveedor)
        VALUES ($1, $2, $3, $4, $5)
-       RETURNING idMedicamento`,
-      [nombre, cantidadInventario, fechaVencimiento, precio, proveedor]
+       RETURNING *`,  // Cambiado para devolver todo el registro
+      [
+        nombre.trim(),
+        Number(cantidadInventario),
+        fechaVencimiento,
+        Number(precio),
+        proveedor.trim()
+      ]
     );
 
-    const nuevoId = result.rows[0].idmedicamento;
     res.status(201).json({
-      message: 'Medicamento registrado correctamente.',
-      idMedicamento: nuevoId
+      message: 'Medicamento registrado correctamente',
+      medicamento: result.rows[0]  // Devuelve todo el objeto medicamento
     });
   } catch (err) {
     console.error('Error al registrar medicamento:', err);
-    res.status(500).json({ error: 'Error interno del servidor.' });
+    
+    // Manejo específico de errores de base de datos
+    if (err.code === '23505') {  // Violación de unique constraint
+      return res.status(409).json({ error: 'Ya existe un medicamento con estos datos' });
+    }
+    
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
@@ -116,15 +133,29 @@ app.put('/api/medicamentos/:id', async (req, res) => {
 app.delete('/api/medicamentos/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await db.query(
-      'DELETE FROM Medicamento WHERE idMedicamento = $1', [id]
+    // Primero eliminar las relaciones en Venta_Medicamento
+    await db.query(
+      'DELETE FROM Venta_Medicamento WHERE idMedicamento = $1',
+      [id]
     );
+
+    // Luego eliminar el medicamento
+    const result = await db.query(
+      'DELETE FROM Medicamento WHERE idMedicamento = $1',
+      [id]
+    );
+
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Medicamento no encontrado' });
     }
-    res.json({ message: 'Medicamento eliminado exitosamente' });
+    
+    res.json({ message: 'Medicamento y registros relacionados eliminados exitosamente' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Error al eliminar medicamento:', err);
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
