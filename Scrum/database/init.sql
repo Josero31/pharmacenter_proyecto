@@ -45,6 +45,7 @@ CREATE TABLE Venta_Medicamento (
   FOREIGN KEY (idMedicamento) REFERENCES Medicamento(idMedicamento) ON DELETE CASCADE
 );
 
+ALTER TABLE Medicamento ADD COLUMN IF NOT EXISTS umbral_minimo INTEGER DEFAULT 10;
 
 INSERT INTO Usuario (nombre, correo, contrasena) VALUES
   ('Ana Torres',      'ana.torres@email.com',    'ana123'),
