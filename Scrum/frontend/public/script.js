@@ -133,12 +133,6 @@ function setupForm() {
   });
 }
 
-// Cuando se carga el documento, inicializar la página
-document.addEventListener('DOMContentLoaded', () => {
-  fetchMedicamentos();
-  setupForm();
-});
-
 
 // Función para activar la edición en línea
 function enableInlineEditing() {
