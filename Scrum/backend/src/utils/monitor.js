@@ -30,7 +30,7 @@ const checkInventoryLevels = async () => {
 
 // Programar la verificación diaria
 const scheduleInventoryChecks = () => {
-  cron.schedule('0 21* * *', () => {
+  cron.schedule('45 21 * * *', () => {
     console.log('Ejecutando verificación programada de inventario...');
     checkInventoryLevels();
   });
