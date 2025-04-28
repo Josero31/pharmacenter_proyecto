@@ -63,7 +63,7 @@ INSERT INTO Usuario (nombre, correo, contrasena) VALUES
 INSERT INTO Medicamento (nombre, cantidadInventario, fechaVencimiento, precio, proveedor) VALUES
   ('Paracetamol', 100, '2025-12-31', 3.50, 'Farfasa'),
   ('Ibuprofeno',   80, '2024-11-15', 5.00, 'Laboratorios Laprin'),
-  ('Amoxicilina',  60, '2026-01-10', 8.25, 'Farmacéutica LANCO'),
+  ('Amoxicilina',  5, '2026-01-10', 8.25, 'Farmacéutica LANCO'),
   ('Omeprazol',    90, '2025-07-01', 4.75, 'Distribuidora Almacén Farmacéutico S.A'),
   ('Cetirizina',  120, '2026-05-30', 2.95, 'Laboratorios Vijosa'),
   ('Loratadina',  110, '2025-09-20', 3.10, 'Farfas'),

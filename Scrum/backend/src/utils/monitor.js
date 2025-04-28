@@ -6,9 +6,9 @@ const cron = require('node-cron');
 const checkInventoryLevels = async () => {
   try {
     const sqlQuery = `
-      SELECT idmedicamento, nombre, cantidadinventario, umbral_minimo 
+      SELECT idMedicamento, nombre, cantidadInventario, umbral_minimo 
       FROM Medicamento 
-      WHERE cantidadinventario < umbral_minimo
+      WHERE cantidadInventario < umbral_minimo
     `;
     
     const result = await db.query(sqlQuery, []);
@@ -30,7 +30,7 @@ const checkInventoryLevels = async () => {
 
 // Programar la verificación diaria
 const scheduleInventoryChecks = () => {
-  cron.schedule('0 20 * * *', () => {
+  cron.schedule('0 21* * *', () => {
     console.log('Ejecutando verificación programada de inventario...');
     checkInventoryLevels();
   });

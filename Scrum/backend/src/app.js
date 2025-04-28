@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const db = require('./models/db');
 const cors = require('cors');
+const { transporter, sendLowStockAlert } = require('./utils/email');
+const { scheduleInventoryChecks } = require('./utils/monitor');
 
 // Middlewares
 app.use(cors({
@@ -11,6 +13,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
+
+scheduleInventoryChecks();
 
 // Rutas básicas
 app.get('/api/medicamentos', async (req, res) => {
