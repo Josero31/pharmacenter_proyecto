@@ -11,8 +11,11 @@ CREATE TABLE Medicamento (
   cantidadInventario  INT           NOT NULL,
   fechaVencimiento    DATE          NOT NULL,
   precio              DECIMAL(10,2) NOT NULL,
-  proveedor           VARCHAR(100)  NOT NULL
+  costo               DECIMAL(10,2) NOT NULL,
+  proveedor           VARCHAR(100)  NOT NULL,
+  imagenUrl           VARCHAR(2555)  -- Campo para el link a la imagen
 );
+
 
 CREATE TABLE Venta (
   idVenta    SERIAL        PRIMARY KEY,
@@ -60,17 +63,18 @@ INSERT INTO Usuario (nombre, correo, contrasena) VALUES
   ('Jorge Herrera',   'jorge.herrera@email.com', 'jorge123');
 
 
-INSERT INTO Medicamento (nombre, cantidadInventario, fechaVencimiento, precio, proveedor) VALUES
-  ('Paracetamol', 100, '2025-12-31', 3.50, 'Farfasa'),
-  ('Ibuprofeno',   80, '2024-11-15', 5.00, 'Laboratorios Laprin'),
-  ('Amoxicilina',  1, '2026-01-10', 8.25, 'Farmacéutica LANCO'),
-  ('Omeprazol',    90, '2025-07-01', 4.75, 'Distribuidora Almacén Farmacéutico S.A'),
-  ('Cetirizina',  120, '2026-05-30', 2.95, 'Laboratorios Vijosa'),
-  ('Loratadina',  110, '2025-09-20', 3.10, 'Farfas'),
-  ('Norgestrel',   70, '2026-03-15', 6.00, 'Farmacéutica LANCO'),
-  ('Simvastatina', 65, '2025-04-01', 7.40, 'Farmacéutica LANCO'),
-  ('Buscapina',   130, '2024-12-05', 4.20, 'Laboratorios Laprin'),
-  ('Salbutamol',   95, '2026-02-22', 9.80, 'Distribuidora Almacén Farmacéutico S.A');
+INSERT INTO Medicamento (nombre, cantidadInventario, fechaVencimiento, precio, costo, proveedor, imagenUrl) VALUES
+  ('Paracetamol',   100, '2025-12-31', 3.50, 2.00, 'Farfasa', 'https://walmartgt.vtexassets.com/arquivos/ids/290893/S-Paracetamol-Mk-750Mg-100-Tabletas-3-32829.jpg?v=637955915607630000'),
+  ('Ibuprofeno',     80, '2024-11-15', 5.00, 3.00, 'Laboratorios Laprin', 'https://walmartgt.vtexassets.com/arquivos/ids/322244/Ibuprofeno-Mk-600-Mg-50-Tabletas-1-32817.jpg?v=638041234307570000'),
+  ('Amoxicilina',     1, '2026-01-10', 8.25, 5.00, 'Farmacéutica LANCO', 'https://www.lasanteca.com/userfiles/2018/12/AMOXICILINA-500MG-CAJA-POR-50-CAPSULAS-CON-BLISTER.jpg'),
+  ('Omeprazol',      90, '2025-07-01', 4.75, 2.50, 'Distribuidora Almacén Farmacéutico S.A', 'https://ejemplo.com/img/omeprazol.jpg'),
+  ('Cetirizina',    120, '2026-05-30', 2.95, 1.70, 'Laboratorios Vijosa', 'https://ejemplo.com/img/cetirizina.jpg'),
+  ('Loratadina',    110, '2025-09-20', 3.10, 1.90, 'Farfas', 'https://ejemplo.com/img/loratadina.jpg'),
+  ('Norgestrel',     70, '2026-03-15', 6.00, 3.80, 'Farmacéutica LANCO', 'https://ejemplo.com/img/norgestrel.jpg'),
+  ('Simvastatina',   65, '2025-04-01', 7.40, 4.20, 'Farmacéutica LANCO', 'https://ejemplo.com/img/simvastatina.jpg'),
+  ('Buscapina',     130, '2024-12-05', 4.20, 2.60, 'Laboratorios Laprin', 'https://ejemplo.com/img/buscapina.jpg'),
+  ('Salbutamol',     95, '2026-02-22', 9.80, 6.00, 'Distribuidora Almacén Farmacéutico S.A', 'https://ejemplo.com/img/salbutamol.jpg');
+
 
 
 INSERT INTO Venta (idUsuario, total) VALUES
