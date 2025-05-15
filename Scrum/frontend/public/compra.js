@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('producto-precio').textContent = isNaN(precio) ? 'Precio no disponible' : `$${precio.toFixed(2)}`;
 
     // Actualizar cantidad
-    const cantidad = Number(producto.cantidadInventario);
+    const cantidad = Number(producto.cantidadinventario);
     document.getElementById('producto-cantidad').textContent = isNaN(cantidad) || cantidad <= 0 ? 'Cantidad no disponible' : `${cantidad} unidades disponibles`;
 
     // Actualizar la imagen
     const img = document.getElementById('producto-img');
-    if (producto.imagenUrl && producto.imagenUrl.trim() !== '') {
-      img.src = producto.imagenUrl;
+    if (producto.imagenurl && producto.imagenurl.trim() !== '') {
+      img.src = producto.imagenurl;
       img.alt = producto.nombre;
     } else {
       img.src = 'https://cdn-icons-png.freepik.com/512/10809/10809585.png'; 
