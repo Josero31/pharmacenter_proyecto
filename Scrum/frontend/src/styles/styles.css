@@ -107,23 +107,36 @@ body {
 }
 
 /* Carrusel de imágenes */
+/* Carrusel de imágenes - Versión modificada */
 .carousel {
-  margin-top: 30px;
+  margin-top: 0;
   position: relative;
+  height: 100vh;
+  overflow: hidden;
+  will-change: transform; /* Optimización de rendimiento */
 }
 
 .carousel-inner {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 350px;
-  border-radius: 10px;
+  height: 100vh;
+  border-radius: 0;
+  transform: translateZ(0); /* Forzar capa de GPU */
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .carousel-item {
   display: none;
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity; /* Pre-renderizado */
+  
 }
 
 .carousel-item.active {
@@ -134,18 +147,44 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(8px) brightness(0.95);
+  transform: scale(1.1);
+  transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); 
+  backface-visibility: hidden;
+}
+
+/* Transición de fade mejorada */
+.carousel-item {
+  opacity: 0;
+   transition: 
+    opacity 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.carousel-item.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .caption {
   position: absolute;
-  bottom: 10%;
-  left: 5%;
-  background: rgba(0, 0, 0, 0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(92, 60, 146, 0.85);
   color: white;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 20px;
+  padding: 25px 40px;
+  border-radius: 15px;
+  font-size: 2.8rem;
+  text-align: center;
+  backdrop-filter: blur(3px);
+  z-index: 2;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
+
+
 
 /* BOTONES DEL CAROUSEL TRASLÚCIDOS */
 .carousel-btn {
@@ -161,6 +200,7 @@ body {
   border-radius: 50%;
   z-index: 2;
   backdrop-filter: blur(5px); /* Desenfoque */
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .carousel-btn.prev {
