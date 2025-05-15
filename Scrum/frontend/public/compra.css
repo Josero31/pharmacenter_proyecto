@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f3e8ff; /* morado clarito de respaldo */
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Imagen de fondo difuminada */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: url('fondo.png') center/cover no-repeat;
+  filter: blur(12px);
+  z-index: -1;
+}
+
+/* Header */
+header {
+  background: #5e35b1;  /* morado */
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  font-size: 1.8rem;
+}
+
+/* Contenedor principal */
+.compra-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Card de compra */
+.compra-card {
+  display: flex;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Imagen izquierda */
+.img-container {
+  flex: 1;
+  background: #e0d4f7; /* lila suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.img-container img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Info derecha */
+.info-container {
+  flex: 1;
+  padding: 1.5rem;
+  background: #ffffff;
+}
+
+.info-container h2 {
+  color: #5e35b1;
+  margin-bottom: 0.5rem;
+}
+
+.info-container p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+/* Formulario de compra */
+#compra-form {
+  margin-top: 1rem;
+}
+
+#compra-form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #5e35b1;
+  font-weight: 600;
+}
+
+#compra-form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+#compra-form button {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  background: #5e35b1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#compra-form button:hover {
+  background: #4527a0;
+}
+
