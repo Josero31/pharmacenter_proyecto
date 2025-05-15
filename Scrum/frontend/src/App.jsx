@@ -4,6 +4,8 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import Carousel from './components/Carousel'
 import Catalogo from './components/Catalogo'
+import Publicidad from './components/Publicidad';
+import BotonPersonalizado from './components/BotonPersonalizado';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -27,6 +29,12 @@ function App() {
           <main className="main-content" id="content">
             <Carousel />
             <Catalogo />
+            <Publicidad />
+            <BotonPersonalizado 
+              texto="Redes Sociales" 
+              url="https://linktr.ee/dra.gabrielaarguello"
+              style={{ width: '100%', textAlign: 'center' }} 
+            />
           </main>
         </>
       )}
