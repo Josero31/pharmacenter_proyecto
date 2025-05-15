@@ -67,14 +67,13 @@ INSERT INTO Medicamento (nombre, cantidadInventario, fechaVencimiento, precio, c
   ('Paracetamol',   100, '2025-12-31', 3.50, 2.00, 'Farfasa', 'https://walmartgt.vtexassets.com/arquivos/ids/290893/S-Paracetamol-Mk-750Mg-100-Tabletas-3-32829.jpg?v=637955915607630000'),
   ('Ibuprofeno',     80, '2024-11-15', 5.00, 3.00, 'Laboratorios Laprin', 'https://walmartgt.vtexassets.com/arquivos/ids/322244/Ibuprofeno-Mk-600-Mg-50-Tabletas-1-32817.jpg?v=638041234307570000'),
   ('Amoxicilina',     1, '2026-01-10', 8.25, 5.00, 'Farmacéutica LANCO', 'https://www.lasanteca.com/userfiles/2018/12/AMOXICILINA-500MG-CAJA-POR-50-CAPSULAS-CON-BLISTER.jpg'),
-  ('Omeprazol',      90, '2025-07-01', 4.75, 2.50, 'Distribuidora Almacén Farmacéutico S.A', 'https://ejemplo.com/img/omeprazol.jpg'),
-  ('Cetirizina',    120, '2026-05-30', 2.95, 1.70, 'Laboratorios Vijosa', 'https://ejemplo.com/img/cetirizina.jpg'),
-  ('Loratadina',    110, '2025-09-20', 3.10, 1.90, 'Farfas', 'https://ejemplo.com/img/loratadina.jpg'),
-  ('Norgestrel',     70, '2026-03-15', 6.00, 3.80, 'Farmacéutica LANCO', 'https://ejemplo.com/img/norgestrel.jpg'),
-  ('Simvastatina',   65, '2025-04-01', 7.40, 4.20, 'Farmacéutica LANCO', 'https://ejemplo.com/img/simvastatina.jpg'),
-  ('Buscapina',     130, '2024-12-05', 4.20, 2.60, 'Laboratorios Laprin', 'https://ejemplo.com/img/buscapina.jpg'),
-  ('Salbutamol',     95, '2026-02-22', 9.80, 6.00, 'Distribuidora Almacén Farmacéutico S.A', 'https://ejemplo.com/img/salbutamol.jpg');
-
+  ('Omeprazol',      90, '2025-07-01', 4.75, 2.50, 'Distribuidora Almacén Farmacéutico S.A', 'https://calox.com/wp-content/uploads/2022/12/Omeprazol-20x28-1.png'),
+  ('Cetirizina',    120, '2026-05-30', 2.95, 1.70, 'Laboratorios Vijosa', 'https://www.olaiz.com/upload/principios-activos/c/cetirizina-cinfa-10mg-20comprimidos-farmacia-andorra.jpg'),
+  ('Loratadina',    110, '2025-09-20', 3.10, 1.90, 'Farfas', 'https://medicamentosmk.com/static/images/loratadina-mk.webp'),
+  ('Norgestrel',     70, '2026-03-15', 6.00, 3.80, 'Farmacéutica LANCO', 'https://biotenk.com.ar/wp-content/uploads/2022/06/Norgestrel-Plus.jpeg'),
+  ('Simvastatina',   65, '2025-04-01', 7.40, 4.20, 'Farmacéutica LANCO', 'https://www.denkpharma.com/wp-content/uploads/2024/07/simvastatina_denk_es.jpg'),
+  ('Buscapina',     130, '2024-12-05', 4.20, 2.60, 'Laboratorios Laprin', 'https://www.buscapina.com/dam/jcr:e826d6a1-9ba5-4cbb-bd5b-09c546228dd2/3_1_hero_desktop.png'),
+  ('Salbutamol',     95, '2026-02-22', 9.80, 6.00, 'Distribuidora Almacén Farmacéutico S.A', 'https://www.buscapina.com/dam/jcr:e826d6a1-9ba5-4cbb-bd5b-09c546228dd2/3_1_hero_desktop.png'); 
 
 
 INSERT INTO Venta (idUsuario, total) VALUES
