@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú Administrador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+    }
+
+    .background {
+      background-image: url('https://ginecologotoledo.com/wp-content/uploads/2024/02/Consulta_Ginecologia_CEA_600.png'); /* Cambia esta ruta */
+      background-size: cover;
+      background-position: center;
+      filter: blur(10px);
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .menu-container {
+      max-width: 500px;
+      margin: 80px auto;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #6d44b8;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .menu-button {
+      padding: 15px;
+      background-color: #d7c8f4;
+      color: #4b2884;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu-button:hover {
+      background-color: #c6b0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="menu-container">
+    <h1>Menú Admin</h1>
+    <button class="menu-button" onclick="location.href='pagina1.html'">Gestión de Usuarios</button>
+    <button class="menu-button" onclick="location.href='main.html'">Inventario</button>
+    <button class="menu-button" onclick="location.href='pagina3.html'">Pedidos</button>
+    <button class="menu-button" onclick="location.href='pagina4.html'">Reportes</button>
+    <button class="menu-button" onclick="location.href='pagina5.html'">Configuración</button>
+    <button class="menu-button" onclick="location.href='login.html'">Cerrar Sesión</button>
+  </div>
+</body>
+</html>
