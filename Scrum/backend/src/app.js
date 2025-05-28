@@ -191,17 +191,22 @@ app.get('/api/usuarios/:id', async (req, res) => {
 
 // POST: Crear un nuevo usuario
 app.post('/api/usuarios', async (req, res) => {
-    const { idUsuario, nombre, contrasena } = req.body;
-    try {
-      await db.query(
-        'INSERT INTO Usuario (idUsuario, nombre, contrasena) VALUES ($1, $2, $3)',
-        [idUsuario, nombre, contrasena]
-      );
-      res.status(201).json({ message: 'Usuario creado exitosamente' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
+  const { nombre, correo, contrasena } = req.body;
+
+  if (!nombre || !correo || !contrasena) {
+    return res.status(400).json({ error: 'Faltan campos requeridos' });
+  }
+
+  try {
+    await db.query(
+      'INSERT INTO Usuario (nombre, correo, contrasena) VALUES ($1, $2, $3)',
+      [nombre.trim(), correo.trim(), contrasena]
+    );
+    res.status(201).json({ message: 'Usuario creado exitosamente' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // PUT: Crear contraseñas
 app.put('/api/usuarios/:id', async (req, res) => {
