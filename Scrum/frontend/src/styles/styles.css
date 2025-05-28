@@ -11,6 +11,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Botón base morado para todos */
+.btn {
+  background-color: #5c3c92; /* Morado sólido */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 22px;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 /* Sidebar */
 .sidebar {
   background-color: #d1b3f0;
@@ -184,14 +198,12 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-
-
-/* BOTONES DEL CAROUSEL TRASLÚCIDOS */
+/* BOTONES DEL CAROUSEL */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(92, 60, 146, 0.5); /* Traslúcido */
+  /* background-color eliminado para heredar de .btn */
   color: white;
   border: none;
   padding: 10px;
@@ -199,7 +211,7 @@ body {
   cursor: pointer;
   border-radius: 50%;
   z-index: 2;
-  backdrop-filter: blur(5px); /* Desenfoque */
+  backdrop-filter: blur(5px);
   transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -262,9 +274,9 @@ body {
   font-size: 14px;
 }
 
-/* BOTONES DEL CATÁLOGO TRASLÚCIDOS */
+/* BOTONES DEL CATÁLOGO */
 .catalog-btn {
-  background-color: rgba(92, 60, 146, 0.5); /* Traslúcido */
+  /* background-color eliminado para heredar de .btn */
   color: white;
   border: none;
   padding: 10px;
@@ -272,7 +284,7 @@ body {
   border-radius: 50%;
   font-size: 24px;
   z-index: 2;
-  backdrop-filter: blur(5px); /* Desenfoque */
+  backdrop-filter: blur(5px);
 }
 
 .catalog-btn.prev {
@@ -391,4 +403,3 @@ body {
 }
 
 
-    
