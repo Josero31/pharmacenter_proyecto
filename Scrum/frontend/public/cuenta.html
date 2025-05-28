@@ -4,6 +4,44 @@
   <meta charset="UTF-8">
   <title>Registro PharmaCenter</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      display: flex; justify-content: center; align-items: center;
+    }
+    .background {
+      background-image: url('https://roche-h.assetsadobe2.com/is/image/content/dam/hcp-portals/spain/images/innovacion/articulos/interior/120_Robotica-ginecologia-Header.png?$HCPNext$&wid=960');
+      background-size: cover;
+      background-position: center;
+      filter: blur(10px);
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .login-container {
+      background-color: #f3e8ff;
+      padding: 40px; border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center; width: 300px;
+    }
+    h2 { color: #7b2cbf; margin-bottom: 20px; }
+    input {
+      width: 90%; padding: 10px;
+      margin: 10px 0; border: 1px solid #ccc;
+      border-radius: 8px; background-color: #fff0f5;
+    }
+    button {
+      width: 95%; padding: 12px;
+      margin-top: 15px; border: none;
+      background-color: #9d4edd;
+      color: white; font-weight: bold;
+      border-radius: 8px; cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover { background-color: #7b2cbf; }
+  </style>
 </head>
 <body>
   <div class="background"></div>
