@@ -380,6 +380,15 @@ body {
 .search-suggestions li:hover {
   background-color: #f0f0f0;
 }
+.search-suggestions li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-suggestions li:hover {
+  background-color: #e0e0e0;
+}
 
 
     

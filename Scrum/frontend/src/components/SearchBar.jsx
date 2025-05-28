@@ -35,9 +35,16 @@ function SearchBar() {
       />
       {query && resultados.length > 0 && (
         <ul className="search-suggestions">
-          {resultados.map((med) => (
-            <li key={med.idMedicamento}>{med.nombre}</li>
-          ))}
+           {resultados.map((med) => (
+                <li
+                    key={med.idMedicamento}
+                    onClick={() => window.location.href = `/compra.html?id=${med.idmedicamento}`}
+                    style={{ cursor: 'pointer' }}
+                >
+                    {med.nombre}
+                </li>
+         ))}
+
         </ul>
       )}
     </div>
