@@ -6,14 +6,51 @@
   <!-- Montserrat desde Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <style>
+  
+  /*HEADER*/
+header {
+  display: flex;
+  justify-content: flex-start;   
+  align-items: center;           
+  position: fixed;               
+  top: 0; left: 0;               
+  width: 100%;                   
+  background: #5e35b1;           
+  color: #fff !important;        
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;                 
+}
 
-  body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-  }
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.logo-img:hover {
+  transform: scale(1.1);
+}
+
+header h1 {
+  margin: 0;
+  color: #fff;                   
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 100px 20px 20px 20px;
+  position: relative;
+  z-index: 1;
+}
+
 
   body::before {
     content: "";
@@ -128,7 +165,17 @@
   </style>
 </head>
 <body>
+  <header>
+    <div class="header-logo-container">
+      <a href="/">
+        <img src="logo_farmacia.png" alt="Logo Farmacia" class="logo-img">
+      </a>
+      <h1>Farmacia Bethesda</h1>
+    </div>
+  </header>
 
+
+  <main>
   <h1>Lista de Medicamentos</h1>
   
   <table id="medicamentosTable">
@@ -162,7 +209,7 @@
   </form>
 
   <script src="script.js"></script>
-
+  </main>
 </body>
 </html>
 
