@@ -16,5 +16,29 @@
       <button type="submit">Crear Usuario</button>
     </form>
   </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const contrasena = document.getElementById('contrasena').value;
+
+      const response = await fetch('http://localhost:3000/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, correo, contrasena })
+      });
+
+      if (response.ok) {
+        alert('Usuario creado exitosamente');
+        window.location.href = 'login.html';
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Error al crear el usuario');
+      }
+    });
+  </script>
 </body>
 </html>
